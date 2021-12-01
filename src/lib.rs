@@ -1,6 +1,7 @@
 use std::error::Error;
 
 use chrono::{DateTime, Utc};
+use std::env;
 use std::fs;
 use std::fs::DirEntry;
 use std::os::unix::fs::PermissionsExt;
@@ -10,11 +11,13 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: &[String]) -> Result<Config, &str> {
-        if args.len() < 2 {
-            return Err("Missing read path argument.");
-        }
-        let path_to_read = args[1].clone();
+    pub fn new(mut args: env::Args) -> Result<Config, &'static str> {
+        args.next();
+
+        let path_to_read = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Path to read argument is needed."),
+        };
 
         Ok(Config { path_to_read })
     }
