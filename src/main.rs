@@ -1,13 +1,10 @@
-use minils::Config;
-use std::{env, process};
+use std::process;
+use structopt::StructOpt;
 
 fn main() {
-    let config = Config::new(env::args()).unwrap_or_else(|err| {
-        eprintln!("Problem parsing arguments: {}", err);
-        process::exit(1);
-    });
+    let args = minils::Cli::from_args();
 
-    if let Err(e) = minils::run(config) {
+    if let Err(e) = minils::run(args) {
         eprintln!("Application error: {}", e);
         process::exit(1);
     }
