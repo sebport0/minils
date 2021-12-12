@@ -24,7 +24,7 @@ cargo run /a/dir
 
 ### Show additional information
 
-To show permissions, size(in bytes), creation time, last modified time and last accessed times use
+To show permissions, size(in bytes), creation, last modified and last accessed times use
 the list flag:
 
 ```
